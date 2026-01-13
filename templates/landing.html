@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BIPLAZA - Generador de Calendario Laboral 2026</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#F1AB6C",
+                    },
+                    fontFamily: {
+                        "sans": ["Source Sans 3", "sans-serif"]
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        body { font-family: 'Source Sans 3', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .hero-bg {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.90)), url('/static/images/bg-calendar.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 px-10 py-5 sticky top-0 z-50">
+        <div class="flex w-full max-w-[1200px] mx-auto items-center justify-center">
+            <img src="/static/images/logo.png" alt="BIPLAZA" class="h-24">
+        </div>
+    </header>
+
+    <!-- Hero Section con fondo -->
+    <main class="flex-1">
+        <section class="hero-bg px-6 py-16 md:py-24">
+            <div class="max-w-[900px] mx-auto">
+                <div class="flex flex-col items-center text-center gap-8">
+                    <!-- Badge -->
+                    <span class="inline-flex items-center rounded-full bg-[#F1AB6C]/10 px-4 py-2 text-xs font-bold text-[#F1AB6C] uppercase tracking-wider">
+                        <span class="material-symbols-outlined text-sm mr-2">verified</span>
+                        Datos oficiales actualizados
+                    </span>
+                    
+                    <!-- Título -->
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-black leading-tight tracking-tight text-gray-900">
+                        Genera tu Calendario Laboral en segundos
+                    </h1>
+                    
+                    <!-- Subtítulo -->
+                    <p class="text-lg md:text-xl text-gray-600 leading-relaxed max-w-[700px]">
+                        Generador automático inteligente que sincroniza todos los festivos nacionales, autonómicos y locales oficiales para tu empresa.
+                    </p>
+
+                    <!-- Formulario -->
+                    <div class="w-full bg-white/80 backdrop-blur-sm border border-gray-200 p-8 md:p-10 rounded-2xl shadow-2xl">
+                        <h3 class="text-xl font-bold flex items-center justify-center gap-2 mb-8">
+                            <span class="material-symbols-outlined text-[#F1AB6C]">tune</span>
+                            Configura tu calendario
+                        </h3>
+                        
+                        <form action="/generar" method="POST" class="flex flex-col gap-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <label class="flex flex-col gap-2">
+                                    <span class="text-sm font-bold text-gray-700">Comunidad Autónoma</span>
+                                    <select name="ccaa" required class="form-select rounded-lg border-gray-300 h-12 px-4 text-base font-medium focus:ring-2 focus:ring-[#F1AB6C]/20 focus:border-[#F1AB6C]">
+                                        <option value="">Selecciona Comunidad</option>
+                                        {% for ccaa in ccaas %}
+                                        <option value="{{ ccaa.value }}">{{ ccaa.nombre }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </label>
+
+                                <label class="flex flex-col gap-2">
+                                    <span class="text-sm font-bold text-gray-700">Municipio</span>
+                                    <input type="text" name="municipio" required placeholder="Ej: Madrid" class="form-input rounded-lg border-gray-300 h-12 px-4 text-base font-medium focus:ring-2 focus:ring-[#F1AB6C]/20 focus:border-[#F1AB6C]">
+                                    <span class="text-xs text-gray-500">Escribe el nombre de tu municipio</span>
+                                </label>
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <span class="text-sm font-bold text-gray-700">Año de vigencia</span>
+                                <div class="flex gap-3">
+                                    <button type="button" onclick="document.querySelector('[name=year]').value='2026'; this.parentElement.querySelectorAll('button').forEach(b => {b.classList.remove('bg-[#F1AB6C]', 'text-white', 'shadow-lg'); b.classList.add('bg-gray-100', 'text-gray-600');}); this.classList.remove('bg-gray-100', 'text-gray-600'); this.classList.add('bg-[#F1AB6C]', 'text-white', 'shadow-lg');" class="flex-1 h-14 rounded-lg bg-[#F1AB6C] text-white font-bold text-base shadow-lg transition-all">2026</button>
+                                    <button type="button" onclick="document.querySelector('[name=year]').value='2025'; this.parentElement.querySelectorAll('button').forEach(b => {b.classList.remove('bg-[#F1AB6C]', 'text-white', 'shadow-lg'); b.classList.add('bg-gray-100', 'text-gray-600');}); this.classList.remove('bg-gray-100', 'text-gray-600'); this.classList.add('bg-[#F1AB6C]', 'text-white', 'shadow-lg');" class="flex-1 h-14 rounded-lg bg-gray-100 text-gray-600 font-medium text-base hover:bg-gray-200 transition-all">2025</button>
+                                </div>
+                                <input type="hidden" name="year" value="2026">
+                            </div>
+
+                            <button type="submit" class="w-full flex items-center justify-center gap-3 rounded-lg h-16 bg-[#F1AB6C] text-white text-lg font-bold shadow-xl hover:brightness-110 hover:-translate-y-1 transition-all">
+                                <span>Generar Calendario</span>
+                                <span class="material-symbols-outlined text-2xl">arrow_forward</span>
+                            </button>
+
+                            <p class="text-xs text-center text-gray-500 uppercase tracking-widest font-bold">
+                                Exportable en PDF
+                            </p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features -->
+        <section class="bg-white py-20 px-6">
+            <div class="max-w-[1200px] mx-auto">
+                <div class="flex flex-col items-center text-center mb-16">
+                    <h2 class="text-3xl font-bold mb-4">Características principales</h2>
+                    <div class="h-1 w-16 bg-[#F1AB6C] rounded-full"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    <div class="p-8 rounded-2xl bg-gray-50 border border-transparent hover:border-[#F1AB6C]/20 transition-all group">
+                        <div class="w-16 h-16 rounded-xl bg-[#F1AB6C]/10 flex items-center justify-center text-[#F1AB6C] mb-6 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-4xl">event_available</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Festivos Oficiales Automatizados</h4>
+                        <p class="text-base text-gray-600 leading-relaxed">Festivos nacionales, autonómicos y locales siempre actualizados desde fuentes oficiales.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl bg-gray-50 border border-transparent hover:border-[#F1AB6C]/20 transition-all group">
+                        <div class="w-16 h-16 rounded-xl bg-[#F1AB6C]/10 flex items-center justify-center text-[#F1AB6C] mb-6 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-4xl">settings_account_box</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Personalización Total</h4>
+                        <p class="text-base text-gray-600 leading-relaxed">Añade datos de empresa, horarios y notas personalizadas a tu calendario.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl bg-gray-50 border border-transparent hover:border-[#F1AB6C]/20 transition-all group">
+                        <div class="w-16 h-16 rounded-xl bg-[#F1AB6C]/10 flex items-center justify-center text-[#F1AB6C] mb-6 group-hover:scale-110 transition-transform">
+                            <span class="material-symbols-outlined text-4xl">picture_as_pdf</span>
+                        </div>
+                        <h4 class="text-xl font-bold mb-3">Exportación Profesional</h4>
+                        <p class="text-base text-gray-600 leading-relaxed">Genera PDFs de alta calidad listos para imprimir y distribuir.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400 px-10 py-8">
+        <div class="max-w-[1200px] mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-sm">© 2026 - BIPLAZA - Marrero Asesores, S.L. - Todos los derechos reservados</p>
+                <p class="text-xs">
+                    Foto por <a href="https://unsplash.com/es/@hudsoncrafted" target="_blank" class="hover:text-[#F1AB6C]">Debby Hudson</a> en <a href="https://unsplash.com/es/fotos/flores-rosas-sobre-papel-blanco-n0-kZDs2EI4" target="_blank" class="hover:text-[#F1AB6C]">Unsplash</a>                    
+                </p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
