@@ -1,0 +1,129 @@
+{
+  "session_id": "bdf94fe4-895c-42c9-bfff-58fe12361bf6",
+  "municipio": "Madrid",
+  "ccaa": "madrid",
+  "ccaa_nombre": "Madrid",
+  "year": 2026,
+  "data": {
+    "municipio": "Madrid",
+    "ccaa": "madrid",
+    "year": 2026,
+    "total_festivos": 12,
+    "festivos": [
+      {
+        "fecha": "2026-01-01",
+        "fecha_texto": "1 de enero",
+        "descripcion": "Año Nuevo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-01-06",
+        "fecha_texto": "6 de enero",
+        "descripcion": "Epifanía del Señor",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-04-02",
+        "fecha_texto": "2 de abril",
+        "descripcion": "Jueves Santo",
+        "tipo": "autonomico",
+        "ambito": "madrid",
+        "ccaa": "madrid",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-04-03",
+        "fecha_texto": "3 de abril",
+        "descripcion": "Viernes Santo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-05-01",
+        "fecha_texto": "1 de mayo",
+        "descripcion": "Fiesta del Trabajo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-05-02",
+        "fecha_texto": "2 de mayo",
+        "descripcion": "Fiesta de la Comunidad de Madrid",
+        "tipo": "autonomico",
+        "ambito": "madrid",
+        "ccaa": "madrid",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-08-15",
+        "fecha_texto": "15 de agosto",
+        "descripcion": "Asunción de la Virgen",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-10-12",
+        "fecha_texto": "12 de octubre",
+        "descripcion": "Fiesta Nacional de España",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-11-02",
+        "fecha_texto": "2 de noviembre",
+        "descripcion": "Día siguiente a Todos los Santos",
+        "tipo": "autonomico",
+        "ambito": "madrid",
+        "ccaa": "madrid",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-07",
+        "fecha_texto": "7 de diciembre",
+        "descripcion": "Lunes siguiente al Día de la Constitución Española",
+        "tipo": "autonomico",
+        "ambito": "madrid",
+        "ccaa": "madrid",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-08",
+        "fecha_texto": "8 de diciembre",
+        "descripcion": "Inmaculada Concepción",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-25",
+        "fecha_texto": "25 de diciembre",
+        "descripcion": "Natividad del Señor",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      }
+    ],
+    "generado": "2026-01-13T21:56:09.178502"
+  },
+  "created_at": "2026-01-13T21:56:09.178608"
+}

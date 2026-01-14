@@ -1,0 +1,154 @@
+{
+  "session_id": "954161a2-c97f-4d77-83a7-67f599f9689f",
+  "municipio": "La Laguna",
+  "ccaa": "canarias",
+  "ccaa_nombre": "Canarias",
+  "year": 2026,
+  "data": {
+    "municipio": "La Laguna",
+    "ccaa": "canarias",
+    "year": 2026,
+    "total_festivos": 14,
+    "festivos": [
+      {
+        "fecha": "2026-01-01",
+        "fecha_texto": "1 de enero",
+        "descripcion": "Año Nuevo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-01-06",
+        "fecha_texto": "6 de enero",
+        "descripcion": "Epifanía del Señor",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-02-02",
+        "fecha_texto": "2 de febrero",
+        "descripcion": "Festividad de la Virgen de la Candelaria",
+        "tipo": "autonomico",
+        "ambito": "insular",
+        "ccaa": "Canarias",
+        "islas": "Tenerife",
+        "municipios_aplicables": [
+          "Tenerife"
+        ],
+        "year": 2026
+      },
+      {
+        "municipio": "SAN CRISTÓBAL DE LA LAGUNA",
+        "fecha": "2026-02-17",
+        "fecha_texto": "17 de febrero",
+        "descripcion": "Martes de Carnaval.",
+        "tipo": "local",
+        "ambito": "municipal",
+        "ccaa": "Canarias",
+        "provincia": "Santa Cruz de Tenerife",
+        "year": 2026
+      },
+      {
+        "fecha": "2026-04-02",
+        "fecha_texto": "2 de abril",
+        "descripcion": "Jueves Santo",
+        "tipo": "autonomico",
+        "ambito": "canarias",
+        "ccaa": "canarias",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-04-03",
+        "fecha_texto": "3 de abril",
+        "descripcion": "Viernes Santo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-05-01",
+        "fecha_texto": "1 de mayo",
+        "descripcion": "Fiesta del Trabajo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-05-30",
+        "fecha_texto": "30 de mayo",
+        "descripcion": "Día de Canarias",
+        "tipo": "autonomico",
+        "ambito": "canarias",
+        "ccaa": "canarias",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-08-15",
+        "fecha_texto": "15 de agosto",
+        "descripcion": "Asunción de la Virgen",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "municipio": "SAN CRISTÓBAL DE LA LAGUNA",
+        "fecha": "2026-09-14",
+        "fecha_texto": "14 de septiembre",
+        "descripcion": "Festividad del Santísimo Cristo de La Laguna.",
+        "tipo": "local",
+        "ambito": "municipal",
+        "ccaa": "Canarias",
+        "provincia": "Santa Cruz de Tenerife",
+        "year": 2026
+      },
+      {
+        "fecha": "2026-10-12",
+        "fecha_texto": "12 de octubre",
+        "descripcion": "Fiesta Nacional de España",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-11-02",
+        "fecha_texto": "2 de noviembre",
+        "descripcion": "Día siguiente a Todos los Santos",
+        "tipo": "autonomico",
+        "ambito": "canarias",
+        "ccaa": "canarias",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-08",
+        "fecha_texto": "8 de diciembre",
+        "descripcion": "Inmaculada Concepción",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-25",
+        "fecha_texto": "25 de diciembre",
+        "descripcion": "Natividad del Señor",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      }
+    ],
+    "generado": "2026-01-14T15:24:10.467255"
+  },
+  "created_at": "2026-01-14T15:24:10.467650"
+}

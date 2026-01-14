@@ -1,0 +1,16 @@
+{
+  "session_id": "6bd86bba-e30b-483d-9a5b-f3307ee7d3fc",
+  "municipio": "La Laguna",
+  "ccaa": "canarias",
+  "ccaa_nombre": "Canarias",
+  "year": 2026,
+  "data": {
+    "municipio": "La Laguna",
+    "ccaa": "canarias",
+    "year": 2026,
+    "total_festivos": 0,
+    "festivos": [],
+    "generado": "2026-01-13T17:41:43.597800"
+  },
+  "created_at": "2026-01-13T17:41:43.598240"
+}

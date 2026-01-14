@@ -1,0 +1,151 @@
+{
+  "session_id": "8bbdb198-e645-4a57-9f2c-f76032e3dd88",
+  "municipio": "Palma",
+  "ccaa": "baleares",
+  "ccaa_nombre": "Baleares",
+  "year": 2026,
+  "data": {
+    "municipio": "Palma",
+    "ccaa": "baleares",
+    "year": 2026,
+    "total_festivos": 14,
+    "festivos": [
+      {
+        "fecha": "2026-01-01",
+        "fecha_texto": "1 de enero",
+        "descripcion": "Año Nuevo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-01-06",
+        "fecha_texto": "6 de enero",
+        "descripcion": "Epifanía del Señor",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-01-20",
+        "fecha_texto": "20 de enero",
+        "descripcion": "San Sebastián",
+        "tipo": "local",
+        "ambito": "Palma",
+        "municipio": "Palma",
+        "isla": "Mallorca",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-03-02",
+        "fecha_texto": "2 de marzo",
+        "descripcion": "Lunes siguiente al Día de les Illes Balears",
+        "tipo": "autonomico",
+        "ambito": "baleares",
+        "ccaa": "baleares",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-04-02",
+        "fecha_texto": "2 de abril",
+        "descripcion": "Jueves Santo",
+        "tipo": "autonomico",
+        "ambito": "baleares",
+        "ccaa": "baleares",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-04-03",
+        "fecha_texto": "3 de abril",
+        "descripcion": "Viernes Santo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-04-06",
+        "fecha_texto": "6 de abril",
+        "descripcion": "Lunes de Pascua",
+        "tipo": "autonomico",
+        "ambito": "baleares",
+        "ccaa": "baleares",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-05-01",
+        "fecha_texto": "1 de mayo",
+        "descripcion": "Fiesta del Trabajo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-06-24",
+        "fecha_texto": "24 de junio",
+        "descripcion": "San Juan",
+        "tipo": "local",
+        "ambito": "Palma",
+        "municipio": "Palma",
+        "isla": "Mallorca",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-08-15",
+        "fecha_texto": "15 de agosto",
+        "descripcion": "Asunción de la Virgen",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-10-12",
+        "fecha_texto": "12 de octubre",
+        "descripcion": "Fiesta Nacional de España",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-08",
+        "fecha_texto": "8 de diciembre",
+        "descripcion": "Inmaculada Concepción",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-25",
+        "fecha_texto": "25 de diciembre",
+        "descripcion": "Natividad del Señor",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-26",
+        "fecha_texto": "26 de diciembre",
+        "descripcion": "San Esteban",
+        "tipo": "autonomico",
+        "ambito": "baleares",
+        "ccaa": "baleares",
+        "sustituible": false,
+        "year": 2026
+      }
+    ],
+    "generado": "2026-01-13T21:55:53.804314"
+  },
+  "created_at": "2026-01-13T21:55:53.804625"
+}
