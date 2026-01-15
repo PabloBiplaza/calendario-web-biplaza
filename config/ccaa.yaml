@@ -1,0 +1,104 @@
+# Configuración de todas las Comunidades Autónomas
+# Este archivo centraliza URLs, scrapers y metadatos
+
+canarias:
+  nombre_completo: "Canarias"
+  codigo: "CN"
+  boletin_oficial:
+    nombre: "BOC"
+    siglas: "BOC"
+    url_base: "https://www.gobiernodecanarias.org/boc"
+  
+  provincias:
+    - Las Palmas
+    - Santa Cruz de Tenerife
+  
+  num_municipios: 88
+  
+  islas:
+    - nombre: Tenerife
+      provincia: Santa Cruz de Tenerife
+      municipios: 31
+    - nombre: Gran Canaria
+      provincia: Las Palmas
+      municipios: 21
+    - nombre: La Palma
+      provincia: Santa Cruz de Tenerife
+      municipios: 14
+    - nombre: La Gomera
+      provincia: Santa Cruz de Tenerife
+      municipios: 6
+    - nombre: El Hierro
+      provincia: Santa Cruz de Tenerife
+      municipios: 3
+    - nombre: Lanzarote
+      provincia: Las Palmas
+      municipios: 7
+    - nombre: Fuerteventura
+      provincia: Las Palmas
+      municipios: 6
+  
+  scrapers:
+    autonomicos:
+      clase: "scrapers.ccaa.canarias.autonomicos.CanariasAutonomicosScraper"
+      descripcion: "Decreto de festivos autonómicos e insulares"
+    locales:
+      clase: "scrapers.ccaa.canarias.locales.CanariasLocalesScraper"
+      descripcion: "Orden de festivos locales por municipio"
+  
+  publicaciones:
+    "2026":
+      autonomicos:
+        boc_numero: "2025/088"
+        id_documento: "1659"
+        url: "https://www.gobiernodecanarias.org/boc/2025/088/1659.html"
+        titulo: "DECRETO 61/2025, de 28 de abril"
+        fecha_publicacion: "2025-05-05"
+      locales:
+        boc_numero: "2025/165"
+        id_documento: "3029"
+        url: "https://www.gobiernodecanarias.org/boc/2025/165/3029.html"
+        titulo: "ORDEN de X de agosto de 2025"
+        fecha_publicacion: "2025-08-26"
+    
+    "2025":
+      autonomicos:
+        boc_numero: "2024/187"
+        id_documento: "3013"
+        url: "https://www.gobiernodecanarias.org/boc/2024/187/3013.html"
+        fecha_publicacion: "2024-09-24"
+      locales:
+        boc_numero: "2024/220"
+        id_documento: "3541"
+        url: "https://www.gobiernodecanarias.org/boc/2024/220/3541.html"
+        fecha_publicacion: "2024-11-12"
+
+# Plantilla para futuras CCAA
+# andalucia:
+#   nombre_completo: "Andalucía"
+#   codigo: "AN"
+#   boletin_oficial:
+#     nombre: "BOJA"
+#     siglas: "BOJA"
+#     url_base: "https://www.juntadeandalucia.es/boja"
+#   provincias:
+#     - Almería
+#     - Cádiz
+#     - Córdoba
+#     - Granada
+#     - Huelva
+#     - Jaén
+#     - Málaga
+#     - Sevilla
+#   num_municipios: 786
+#   scrapers:
+#     autonomicos:
+#       clase: "scrapers.ccaa.andalucia.autonomicos.AndaluciaAutonomicosScraper"
+#     locales:
+#       clase: "scrapers.ccaa.andalucia.locales.AndaluciaLocalesScraper"
+#   publicaciones:
+#     "2026":
+#       autonomicos:
+#         url: "..."
+#       locales:
+#         url: "..."

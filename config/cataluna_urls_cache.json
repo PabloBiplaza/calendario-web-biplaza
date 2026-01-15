@@ -1,0 +1,16 @@
+{
+  "2026": {
+    "documentId": "1032232",
+    "versionId": "2125486",
+    "nota": "Ordre EMT/208/2025, d'11 de desembre"
+  },
+  "_instrucciones": {
+    "como_añadir_nuevo_año": [
+      "1. Visitar: https://treball.gencat.cat/ca/ambits/relacions_laborals/ci/calendari_laboral/normativa/",
+      "2. Buscar 'Ordre' de festivos locales del año deseado (diciembre año anterior)",
+      "3. Copiar enlace al DOGC y extraer documentId de la URL",
+      "4. Probar versionId cercanos al último conocido (~±100)",
+      "5. Validar XML: debe contener festivos de todas las comarcas (120k+ caracteres)"
+    ]
+  }
+}
