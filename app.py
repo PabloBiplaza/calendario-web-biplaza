@@ -229,11 +229,12 @@ def download_csv(session_id):
         traceback.print_exc()
         return f"Error generando CSV: {str(e)}", 500
 
-@app.route('/download-xlsx/<session_id>')
-def download_xlsx(session_id):
-    """Descarga festivos en formato Excel"""
+@app.route('/download/<session_id>', methods=['POST'])
+def download(session_id):
+    """Genera y descarga HTML con auto-print para PDF"""
     from flask import send_file
-    import pandas as pd
+    from utils.calendar_generator import CalendarGenerator
+    from datetime import datetime
     import tempfile
     
     # Cargar sesión
@@ -244,42 +245,97 @@ def download_xlsx(session_id):
     with open(session_file, 'r', encoding='utf-8') as f:
         session_data = json.load(f)
     
+    # === RECOGER DATOS DEL FORMULARIO ===
+    
+    # Obligatorios
+    empresa = request.form.get('empresa', '').strip()
+    direccion = request.form.get('direccion', '').strip()
+    horario_invierno = request.form.get('horario_invierno', '').strip()
+    
+    # Horario (con verano opcional)
+    horario = {
+        'invierno': horario_invierno,
+        'tiene_verano': bool(request.form.get('tiene_verano'))
+    }
+    
+    if horario['tiene_verano']:
+        horario['verano'] = request.form.get('horario_verano', '').strip()
+        
+        # Fechas de verano
+        verano_inicio = request.form.get('verano_inicio', '').strip()
+        verano_fin = request.form.get('verano_fin', '').strip()
+        
+        if verano_inicio:
+            horario['verano_inicio'] = datetime.strptime(verano_inicio, '%Y-%m-%d')
+        if verano_fin:
+            horario['verano_fin'] = datetime.strptime(verano_fin, '%Y-%m-%d')
+    
+    # Datos opcionales
+    datos_opcionales = {
+        'direccion': direccion,
+    }
+    
+    # Añadir solo si tienen valor
+    convenio = request.form.get('convenio', '').strip()
+    if convenio:
+        datos_opcionales['convenio'] = convenio
+    
+    num_patronal = request.form.get('num_patronal', '').strip()
+    if num_patronal:
+        datos_opcionales['num_patronal'] = num_patronal
+    
+    mutua = request.form.get('mutua', '').strip()
+    if mutua:
+        datos_opcionales['mutua'] = mutua
+    
     try:
-        # Crear DataFrame
-        festivos = session_data['data']['festivos']
-        df = pd.DataFrame(festivos)
+        # Crear generador con todos los parámetros
+        generator = CalendarGenerator(
+            year=session_data['year'],
+            festivos=session_data['data']['festivos'],
+            municipio=session_data['municipio'],
+            ccaa=session_data['ccaa_nombre'],
+            empresa=empresa,
+            horario=horario,
+            datos_opcionales=datos_opcionales
+        )
         
-        # Seleccionar y ordenar columnas
-        columnas = ['fecha', 'fecha_texto', 'descripcion', 'tipo']
-        if 'ambito' in df.columns:
-            columnas.append('ambito')
+        # Generar HTML
+        html_content = generator.generate_html()
         
-        df = df[columnas]
+        # Añadir script de auto-print
+        html_content = html_content.replace('</body>', '''
+            <script>
+            window.onload = function() {
+                setTimeout(function() {
+                    window.print();
+                }, 500);
+            };
+            </script>
+            </body>
+        ''')
         
-        # Renombrar columnas
-        df.columns = ['Fecha', 'Fecha (texto)', 'Descripción', 'Tipo', 'Ámbito'] if 'ambito' in df.columns else ['Fecha', 'Fecha (texto)', 'Descripción', 'Tipo']
-        
-        # Guardar Excel temporal
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx') as tmp:
-            xlsx_path = tmp.name
-            df.to_excel(xlsx_path, index=False, engine='openpyxl')
+        # Guardar HTML temporal
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.html', mode='w', encoding='utf-8') as tmp:
+            tmp.write(html_content)
+            html_path = tmp.name
         
         # Nombre del archivo
         municipio_safe = session_data['municipio'].lower().replace(' ', '_')
-        filename = f"festivos_{municipio_safe}_{session_data['year']}.xlsx"
+        filename = f"calendario_{municipio_safe}_{session_data['year']}.html"
         
         return send_file(
-            xlsx_path,
+            html_path,
             as_attachment=True,
             download_name=filename,
-            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            mimetype='text/html'
         )
         
     except Exception as e:
-        print(f"❌ Error generando Excel: {e}")
+        print(f"❌ Error generando calendario: {e}")
         import traceback
         traceback.print_exc()
-        return f"Error generando Excel: {str(e)}", 500
+        return f"Error: {str(e)}", 500
 
 @app.route('/health')
 def health():
