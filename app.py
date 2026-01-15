@@ -115,14 +115,9 @@ def calendario(session_id):
 
 @app.route('/download/<session_id>', methods=['POST'])
 def download(session_id):
-    """Genera y descarga el PDF del calendario"""
+    """Genera y descarga HTML con auto-print para PDF"""
     from flask import send_file
-    import utils.calendar_generator
-    print("=" * 80)
-    print(f"📍 Importando CalendarGenerator desde: {utils.calendar_generator.__file__}")
-    print("=" * 80)
-    from xhtml2pdf import pisa
-    from datetime import datetime
+    from utils.calendar_generator import CalendarGenerator
     import tempfile
     
     # Cargar sesión
@@ -133,51 +128,11 @@ def download(session_id):
     with open(session_file, 'r', encoding='utf-8') as f:
         session_data = json.load(f)
     
-    # === RECOGER DATOS DEL FORMULARIO ===
-    
-    # Obligatorios
-    empresa = request.form.get('empresa', '').strip()
-    direccion = request.form.get('direccion', '').strip()
-    horario_invierno = request.form.get('horario_invierno', '').strip()
-    
-    # Horario (con verano opcional)
-    horario = {
-        'invierno': horario_invierno,
-        'tiene_verano': bool(request.form.get('tiene_verano'))
-    }
-    
-    if horario['tiene_verano']:
-        horario['verano'] = request.form.get('horario_verano', '').strip()
-        
-        # Fechas de verano
-        verano_inicio = request.form.get('verano_inicio', '').strip()
-        verano_fin = request.form.get('verano_fin', '').strip()
-        
-        if verano_inicio:
-            horario['verano_inicio'] = datetime.strptime(verano_inicio, '%Y-%m-%d')
-        if verano_fin:
-            horario['verano_fin'] = datetime.strptime(verano_fin, '%Y-%m-%d')
-    
-    # Datos opcionales
-    datos_opcionales = {
-        'direccion': direccion,
-    }
-    
-    # Añadir solo si tienen valor
-    convenio = request.form.get('convenio', '').strip()
-    if convenio:
-        datos_opcionales['convenio'] = convenio
-    
-    num_patronal = request.form.get('num_patronal', '').strip()
-    if num_patronal:
-        datos_opcionales['num_patronal'] = num_patronal
-    
-    mutua = request.form.get('mutua', '').strip()
-    if mutua:
-        datos_opcionales['mutua'] = mutua
+    # Recoger datos del formulario...
+    # [mantener todo el código de recogida de datos]
     
     try:
-        # Crear generador con todos los parámetros
+        # Crear generador
         generator = CalendarGenerator(
             year=session_data['year'],
             festivos=session_data['data']['festivos'],
@@ -190,31 +145,40 @@ def download(session_id):
         
         # Generar HTML
         html_content = generator.generate_html()
-
-        # Crear PDF con xhtml2pdf
-        with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf', mode='wb') as tmp:
-            pdf_path = tmp.name
-            pisa_status = pisa.CreatePDF(html_content, dest=tmp)
-            
-            if pisa_status.err:
-                raise Exception("Error generando PDF con xhtml2pdf")
         
-        # Nombre del archivo para descarga
+        # Añadir script de auto-print
+        html_content = html_content.replace('</body>', '''
+            <script>
+            window.onload = function() {
+                setTimeout(function() {
+                    window.print();
+                }, 500);
+            };
+            </script>
+            </body>
+        ''')
+        
+        # Guardar HTML temporal
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.html', mode='w', encoding='utf-8') as tmp:
+            tmp.write(html_content)
+            html_path = tmp.name
+        
+        # Nombre del archivo
         municipio_safe = session_data['municipio'].lower().replace(' ', '_')
-        filename = f"calendario_{municipio_safe}_{session_data['year']}.pdf"
+        filename = f"calendario_{municipio_safe}_{session_data['year']}.html"
         
         return send_file(
-            pdf_path,
+            html_path,
             as_attachment=True,
             download_name=filename,
-            mimetype='application/pdf'
+            mimetype='text/html'
         )
         
     except Exception as e:
-        print(f"❌ Error generando PDF: {e}")
+        print(f"❌ Error generando calendario: {e}")
         import traceback
         traceback.print_exc()
-        return f"Error generando PDF: {str(e)}", 500
+        return f"Error: {str(e)}", 500
 
 @app.route('/download-csv/<session_id>')
 def download_csv(session_id):
