@@ -121,7 +121,7 @@ def download(session_id):
     print("=" * 80)
     print(f"📍 Importando CalendarGenerator desde: {utils.calendar_generator.__file__}")
     print("=" * 80)
-    from weasyprint import HTML
+    from xhtml2pdf import pisa
     from datetime import datetime
     import tempfile
     
@@ -191,10 +191,13 @@ def download(session_id):
         # Generar HTML
         html_content = generator.generate_html()
 
-        # Crear PDF desde HTML
+        # Crear PDF con xhtml2pdf
         with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf', mode='wb') as tmp:
             pdf_path = tmp.name
-            HTML(string=html_content).write_pdf(pdf_path)
+            pisa_status = pisa.CreatePDF(html_content, dest=tmp)
+            
+            if pisa_status.err:
+                raise Exception("Error generando PDF con xhtml2pdf")
         
         # Nombre del archivo para descarga
         municipio_safe = session_data['municipio'].lower().replace(' ', '_')
