@@ -1,8 +1,14 @@
 [phases.setup]
 nixPkgs = [
     "cairo",
-    "pango", 
+    "pango",
     "gdk-pixbuf",
     "libffi",
-    "glib"
+    "glib",
+    "gobject-introspection",
+    "fontconfig",
+    "freetype"
 ]
+
+[phases.install]
+dependsOn = ["setup"]
