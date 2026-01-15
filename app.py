@@ -9,10 +9,6 @@ from datetime import datetime
 # IMPORTANTE: Importar CalendarGenerator del directorio LOCAL primero
 from utils.calendar_generator import CalendarGenerator
 
-# Luego añadir el directorio del proyecto original al path para scrapers
-proyecto_original = str(Path(__file__).parent.parent / 'calendario-laboral-espana')
-sys.path.insert(0, proyecto_original)
-
 # Importar scrape_festivos_completos desde el proyecto original
 from scrape_municipio import scrape_festivos_completos
 print("✅ Import scrape_festivos_completos OK")
@@ -342,7 +338,7 @@ def api_municipios(ccaa):
     
     # Obtener nombre del archivo
     filename = FILENAME_MAP.get(ccaa, f'{ccaa}_municipios.json')
-    config_file = Path(proyecto_original) / 'config' / filename
+    config_file = Path(__file__).parent / 'config' / filename
     
     if not config_file.exists():
         return jsonify({'error': 'CCAA no encontrada'}), 404
