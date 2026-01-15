@@ -42,10 +42,21 @@ SESSION_DIR.mkdir(exist_ok=True)
 @app.route('/')
 def landing():
     """Landing page principal"""
+    # Leer CCAA desde el proyecto original (scrape_municipio.py tiene ccaa_soportadas)
+    # Ya está importado arriba como módulo
+    import sys
+    sys.path.insert(0, proyecto_original) if proyecto_original not in sys.path else None
+    
+    # Importar la lista de CCAA soportadas
+    import scrape_municipio
+    ccaa_soportadas = scrape_municipio.ccaa_soportadas if hasattr(scrape_municipio, 'ccaa_soportadas') else CCAA_SOPORTADAS
+    
+    # Crear lista ordenada de CCAA con nombres bonitos
     ccaas = [
         {'value': ccaa, 'nombre': CCAA_NOMBRES.get(ccaa, ccaa.title())}
-        for ccaa in sorted(CCAA_SOPORTADAS)
+        for ccaa in ccaa_soportadas
     ]
+    ccaas.sort(key=lambda x: x['nombre'])  # ← Ordena por nombre visual
     return render_template('landing.html', ccaas=ccaas)
 
 @app.route('/generar', methods=['POST'])
@@ -211,10 +222,146 @@ def download(session_id):
         traceback.print_exc()
         return f"Error generando PDF: {str(e)}", 500
 
+@app.route('/download-csv/<session_id>')
+def download_csv(session_id):
+    """Descarga festivos en formato CSV"""
+    from flask import send_file
+    import pandas as pd
+    import tempfile
+    
+    # Cargar sesión
+    session_file = SESSION_DIR / f"{session_id}.json"
+    if not session_file.exists():
+        return "Error: Sesión no encontrada", 404
+    
+    with open(session_file, 'r', encoding='utf-8') as f:
+        session_data = json.load(f)
+    
+    try:
+        # Crear DataFrame
+        festivos = session_data['data']['festivos']
+        df = pd.DataFrame(festivos)
+        
+        # Seleccionar y ordenar columnas
+        columnas = ['fecha', 'fecha_texto', 'descripcion', 'tipo']
+        if 'ambito' in df.columns:
+            columnas.append('ambito')
+        
+        df = df[columnas]
+        
+        # Guardar CSV temporal
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.csv', mode='w', encoding='utf-8') as tmp:
+            csv_path = tmp.name
+            df.to_csv(csv_path, index=False, encoding='utf-8')
+        
+        # Nombre del archivo
+        municipio_safe = session_data['municipio'].lower().replace(' ', '_')
+        filename = f"festivos_{municipio_safe}_{session_data['year']}.csv"
+        
+        return send_file(
+            csv_path,
+            as_attachment=True,
+            download_name=filename,
+            mimetype='text/csv'
+        )
+        
+    except Exception as e:
+        print(f"❌ Error generando CSV: {e}")
+        import traceback
+        traceback.print_exc()
+        return f"Error generando CSV: {str(e)}", 500
+
+@app.route('/download-xlsx/<session_id>')
+def download_xlsx(session_id):
+    """Descarga festivos en formato Excel"""
+    from flask import send_file
+    import pandas as pd
+    import tempfile
+    
+    # Cargar sesión
+    session_file = SESSION_DIR / f"{session_id}.json"
+    if not session_file.exists():
+        return "Error: Sesión no encontrada", 404
+    
+    with open(session_file, 'r', encoding='utf-8') as f:
+        session_data = json.load(f)
+    
+    try:
+        # Crear DataFrame
+        festivos = session_data['data']['festivos']
+        df = pd.DataFrame(festivos)
+        
+        # Seleccionar y ordenar columnas
+        columnas = ['fecha', 'fecha_texto', 'descripcion', 'tipo']
+        if 'ambito' in df.columns:
+            columnas.append('ambito')
+        
+        df = df[columnas]
+        
+        # Renombrar columnas
+        df.columns = ['Fecha', 'Fecha (texto)', 'Descripción', 'Tipo', 'Ámbito'] if 'ambito' in df.columns else ['Fecha', 'Fecha (texto)', 'Descripción', 'Tipo']
+        
+        # Guardar Excel temporal
+        with tempfile.NamedTemporaryFile(delete=False, suffix='.xlsx') as tmp:
+            xlsx_path = tmp.name
+            df.to_excel(xlsx_path, index=False, engine='openpyxl')
+        
+        # Nombre del archivo
+        municipio_safe = session_data['municipio'].lower().replace(' ', '_')
+        filename = f"festivos_{municipio_safe}_{session_data['year']}.xlsx"
+        
+        return send_file(
+            xlsx_path,
+            as_attachment=True,
+            download_name=filename,
+            mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        )
+        
+    except Exception as e:
+        print(f"❌ Error generando Excel: {e}")
+        import traceback
+        traceback.print_exc()
+        return f"Error generando Excel: {str(e)}", 500
+
 @app.route('/health')
 def health():
     """Health check para Railway"""
     return jsonify({'status': 'ok'})
+
+@app.route('/api/municipios/<ccaa>')
+def api_municipios(ccaa):
+    """API que devuelve municipios de una CCAA"""
+    import json
+    from pathlib import Path
+    
+    # Mapeo de nombres especiales de archivos
+    FILENAME_MAP = {
+        'canarias': 'canarias_municipios_islas.json',
+        # Añadir aquí otros casos especiales si los hay
+    }
+    
+    # Obtener nombre del archivo
+    filename = FILENAME_MAP.get(ccaa, f'{ccaa}_municipios.json')
+    config_file = Path(proyecto_original) / 'config' / filename
+    
+    if not config_file.exists():
+        return jsonify({'error': 'CCAA no encontrada'}), 404
+    
+    with open(config_file, 'r', encoding='utf-8') as f:
+        data = json.load(f)
+    
+    # Dependiendo del formato
+    municipios = []
+    if isinstance(data, list):
+        municipios = sorted(data)
+    elif isinstance(data, dict):
+        # Aplanar dict (por islas, provincias, etc)
+        for valores in data.values():
+            if isinstance(valores, list):
+                municipios.extend(valores)
+        municipios = sorted(set(municipios))
+    
+    return jsonify(municipios)
 
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5001))

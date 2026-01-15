@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
+    <!-- Tom Select CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.bootstrap5.min.css" rel="stylesheet">    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BIPLAZA - Generador de Calendario Laboral 2026</title>
@@ -29,6 +31,42 @@
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
+        }
+        /* Tom Select customization */
+        .ts-dropdown {
+            background: white !important;
+            opacity: 1 !important;
+            border: 1px solid #ddd !important;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+        }
+
+        .ts-dropdown-content {
+            background: white !important;
+        }
+
+        .ts-dropdown .option {
+            text-align: left !important;
+            padding: 8px 12px !important;
+        }
+
+        .ts-control,
+        .ts-control input {
+            text-align: left !important;
+        }
+
+        .ts-wrapper.single .ts-control {
+            background: white !important;
+        }
+
+        /* Asegurar altura consistente en Tom Select */
+        .ts-wrapper {
+            min-height: 48px !important;
+        }
+
+        .ts-control {
+            min-height: 48px !important;
+            display: flex !important;
+            align-items: center !important;
         }
     </style>
 </head>
@@ -82,8 +120,10 @@
 
                                 <label class="flex flex-col gap-2">
                                     <span class="text-sm font-bold text-gray-700">Municipio</span>
-                                    <input type="text" name="municipio" required placeholder="Ej: Madrid" class="form-input rounded-lg border-gray-300 h-12 px-4 text-base font-medium focus:ring-2 focus:ring-[#F1AB6C]/20 focus:border-[#F1AB6C]">
-                                    <span class="text-xs text-gray-500">Escribe el nombre de tu municipio</span>
+                                    <select name="municipio" id="municipio-select" required class="form-select rounded-lg border-gray-300 h-12 px-4 text-base font-medium focus:ring-2 focus:ring-[#F1AB6C]/20 focus:border-[#F1AB6C]">
+                                        <option value="">Primero selecciona una comunidad</option>
+                                    </select>
+                                    <span class="text-xs text-gray-500 min-h-[20px]" id="municipio-count"></span>
                                 </label>
                             </div>
 
@@ -155,5 +195,83 @@
             </div>
         </div>
     </footer>
+
+    <!-- Tom Select JS -->
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
+
+<script>
+// Inicializar Tom Select en los dropdowns
+document.addEventListener('DOMContentLoaded', function() {
+    // CCAA con búsqueda
+    const ccaaSelect = new TomSelect('[name="ccaa"]', {
+        placeholder: 'Busca o selecciona...',
+        maxOptions: null,
+        onChange: function(value) {
+            // Trigger el evento change para cargar municipios
+            document.querySelector('[name="ccaa"]').dispatchEvent(new Event('change'));
+        }
+    });
+    
+    // Municipio con búsqueda (se reinicializa cuando carga datos)
+    let municipioSelect = null;
+    
+    // Guardar el evento change original
+    const originalChangeHandler = document.querySelector('[name="ccaa"]').onchange;
+});
+</script>
+
+<script>
+// Cargar municipios cuando cambia la CCAA
+let municipioTomSelect = null;
+
+document.querySelector('[name="ccaa"]').addEventListener('change', async function(e) {
+    const ccaa = e.target.value;
+    const municipioSelect = document.getElementById('municipio-select');
+    const municipioCount = document.getElementById('municipio-count');
+    
+    // Destruir Tom Select previo si existe
+    if (municipioTomSelect) {
+        municipioTomSelect.destroy();
+        municipioTomSelect = null;
+    }
+    
+    // Reset
+    municipioSelect.innerHTML = '<option value="">Cargando municipios...</option>';
+    municipioSelect.disabled = true;
+    municipioCount.textContent = '';
+    
+    if (!ccaa) {
+        municipioSelect.innerHTML = '<option value="">Primero selecciona una comunidad</option>';
+        return;
+    }
+    
+    try {
+        const response = await fetch(`/api/municipios/${ccaa}`);
+        const municipios = await response.json();
+        
+        // Poblar dropdown
+        municipioSelect.innerHTML = '<option value="">Selecciona tu municipio</option>';
+        municipios.forEach(muni => {
+            const option = document.createElement('option');
+            option.value = muni;
+            option.textContent = muni;
+            municipioSelect.appendChild(option);
+        });
+        
+        municipioSelect.disabled = false;
+        municipioCount.textContent = `${municipios.length} municipios disponibles`;
+        
+        // Inicializar Tom Select en municipios
+        municipioTomSelect = new TomSelect('#municipio-select', {
+            placeholder: 'Busca tu municipio...',
+            maxOptions: null
+        });
+        
+    } catch (error) {
+        console.error('Error cargando municipios:', error);
+        municipioSelect.innerHTML = '<option value="">Error cargando municipios</option>';
+    }
+});
+</script>
 </body>
 </html>

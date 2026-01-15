@@ -43,14 +43,13 @@ class CalendarGenerator:
         import base64
         import os
         
-        logo_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'assets', 'logo_320x132.gif')
+        logo_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), 'static', 'images', 'logo.png')
         
         try:
             with open(logo_path, 'rb') as f:
                 logo_data = f.read()
                 return base64.b64encode(logo_data).decode()
         except FileNotFoundError:
-            # Si no encuentra el logo, devolver string vacío
             return ""
     
     def generate_html(self) -> str:
@@ -186,7 +185,7 @@ class CalendarGenerator:
         }
         
         .weekday {
-            padding: 3px 2px;
+            padding: 0;
             text-align: center;
             font-weight: bold;
             font-size: 0.65em;
@@ -199,7 +198,7 @@ class CalendarGenerator:
         }
         
         .day {
-            padding: 4px 2px;
+            padding: 0;
             text-align: center;
             font-size: 0.7em;
             min-height: 24px;
@@ -369,7 +368,7 @@ class CalendarGenerator:
         
         logo_html = ""
         if self.logo_base64:
-            logo_html = f'<img src="data:image/gif;base64,{self.logo_base64}" class="logo" alt="Biplaza">'
+            logo_html = f'<img src="data:image/png;base64,{self.logo_base64}" class="logo" alt="Biplaza">'
         
         return f"""
     <div class="container">

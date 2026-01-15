@@ -1,0 +1,151 @@
+{
+  "session_id": "e937dbdb-e12b-47f8-b2bd-128961cd0d8f",
+  "municipio": "Málaga",
+  "ccaa": "andalucia",
+  "ccaa_nombre": "Andalucía",
+  "year": 2026,
+  "data": {
+    "municipio": "Málaga",
+    "ccaa": "andalucia",
+    "year": 2026,
+    "total_festivos": 14,
+    "festivos": [
+      {
+        "fecha": "2026-01-01",
+        "fecha_texto": "1 de enero",
+        "descripcion": "Año Nuevo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-01-06",
+        "fecha_texto": "6 de enero",
+        "descripcion": "Epifanía del Señor",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-02-28",
+        "fecha_texto": "28 de febrero",
+        "descripcion": "Día de Andalucía",
+        "tipo": "autonomico",
+        "ambito": "andalucia",
+        "ccaa": "andalucia",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-04-02",
+        "fecha_texto": "2 de abril",
+        "descripcion": "Jueves Santo",
+        "tipo": "autonomico",
+        "ambito": "andalucia",
+        "ccaa": "andalucia",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-04-03",
+        "fecha_texto": "3 de abril",
+        "descripcion": "Viernes Santo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-05-01",
+        "fecha_texto": "1 de mayo",
+        "descripcion": "Fiesta del Trabajo",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-08-15",
+        "fecha_texto": "15 de agosto",
+        "descripcion": "Asunción de la Virgen",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-08-19",
+        "fecha_texto": "19 de agosto",
+        "descripcion": "Festivo local de Málaga",
+        "tipo": "local",
+        "ambito": "Málaga",
+        "municipio": "Málaga",
+        "provincia": "MÁLAGA",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-09-08",
+        "fecha_texto": "08 de septiembre",
+        "descripcion": "Festivo local de Málaga",
+        "tipo": "local",
+        "ambito": "Málaga",
+        "municipio": "Málaga",
+        "provincia": "MÁLAGA",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-10-12",
+        "fecha_texto": "12 de octubre",
+        "descripcion": "Fiesta Nacional de España",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-11-02",
+        "fecha_texto": "2 de noviembre",
+        "descripcion": "Día siguiente a Todos los Santos",
+        "tipo": "autonomico",
+        "ambito": "andalucia",
+        "ccaa": "andalucia",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-07",
+        "fecha_texto": "7 de diciembre",
+        "descripcion": "Lunes siguiente al Día de la Constitución Española",
+        "tipo": "autonomico",
+        "ambito": "andalucia",
+        "ccaa": "andalucia",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-08",
+        "fecha_texto": "8 de diciembre",
+        "descripcion": "Inmaculada Concepción",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      },
+      {
+        "fecha": "2026-12-25",
+        "fecha_texto": "25 de diciembre",
+        "descripcion": "Natividad del Señor",
+        "tipo": "nacional",
+        "ambito": "nacional",
+        "sustituible": false,
+        "year": 2026
+      }
+    ],
+    "generado": "2026-01-15T12:52:38.925228"
+  },
+  "created_at": "2026-01-15T12:52:38.925376"
+}

@@ -160,6 +160,20 @@
                         </button>
                     </form>
 
+                    <div class="mt-4 pt-4 border-t border-gray-200">
+                        <p class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Exportar datos</p>
+                        <div class="flex gap-2">
+                            <a href="/download-csv/{{ session_id }}" class="flex-1 flex items-center justify-center gap-2 h-10 bg-green-600 text-white text-sm font-bold rounded-lg hover:brightness-110 transition-all">
+                                <span class="material-symbols-outlined text-lg">description</span>
+                                CSV
+                            </a>
+                            <a href="/download-xlsx/{{ session_id }}" class="flex-1 flex items-center justify-center gap-2 h-10 bg-blue-600 text-white text-sm font-bold rounded-lg hover:brightness-110 transition-all">
+                                <span class="material-symbols-outlined text-lg">table_chart</span>
+                                Excel
+                            </a>
+                        </div>
+                    </div>
+
                     <script>
                     document.querySelector('form').addEventListener('submit', function() {
                         const btn = document.getElementById('btnDownload');
