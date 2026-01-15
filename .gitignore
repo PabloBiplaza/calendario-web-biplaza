@@ -8,5 +8,4 @@ env/
 .env
 .DS_Store
 *.pdf
-config/
 temp_sessions/*.json
