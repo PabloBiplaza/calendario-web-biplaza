@@ -38,11 +38,6 @@ SESSION_DIR.mkdir(exist_ok=True)
 @app.route('/')
 def landing():
     """Landing page principal"""
-    # Leer CCAA desde el proyecto original (scrape_municipio.py tiene ccaa_soportadas)
-    # Ya está importado arriba como módulo
-    import sys
-    sys.path.insert(0, proyecto_original) if proyecto_original not in sys.path else None
-    
     # Importar la lista de CCAA soportadas
     import scrape_municipio
     ccaa_soportadas = scrape_municipio.ccaa_soportadas if hasattr(scrape_municipio, 'ccaa_soportadas') else CCAA_SOPORTADAS
